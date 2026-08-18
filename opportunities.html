@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities & Multidisciplinary Teams - SkillMatch</title>
+    <meta name="description" content="Explainable, evidence-backed matching for internships and multidisciplinary teams with actionable skill gap roadmaps and 100% bias-free fairness guarantees.">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-brand">
+                <span class="logo-badge"><i class="fa-solid fa-passport"></i></span>
+                <span>SkillMatch</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a href="profile.html" class="nav-link"><i class="fa-solid fa-id-card"></i> Skill Passport</a></li>
+                    <li><a href="opportunities.html" class="nav-link active"><i class="fa-solid fa-briefcase"></i> Opportunities</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <span class="badge-fairness">
+                    <i class="fa-solid fa-shield-halved"></i> 100% Bias-Shielded
+                </span>
+                <a href="profile.html" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-user-pen"></i> Edit Passport
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Active Candidate Passport Ribbon -->
+        <div class="preset-switcher-box" id="activeCandidateBanner" style="margin-bottom: 25px;">
+            <!-- Rendered dynamically by script.js -->
+        </div>
+
+        <!-- Segmented Tab Navigation -->
+        <div class="tabs-header-bar">
+            <button class="tab-btn active" id="tabInternshipsBtn" onclick="switchMainTab('internships')">
+                <i class="fa-solid fa-briefcase"></i> Internship Matcher
+            </button>
+            <button class="tab-btn" id="tabTeamsBtn" onclick="switchMainTab('teams')">
+                <i class="fa-solid fa-people-group"></i> Multidisciplinary Teams
+            </button>
+            <button class="tab-btn" id="tabFairnessBtn" onclick="switchMainTab('fairness')">
+                <i class="fa-solid fa-scale-balanced"></i> Fairness & Verification Hub
+            </button>
+        </div>
+
+        <!-- ==========================================
+             TAB 1: Internship & Role Matcher
+             ========================================== -->
+        <section id="internshipsSection">
+            <!-- Filter Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 24px; margin-bottom: 4px;">Explainable Internship Recommendations</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px;">
+                        Recommendations cite exact coursework, code repositories, hackathon awards, and micro-credentials that prove competency.
+                    </p>
+                </div>
+
+                <!-- Domain Filter Pills -->
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="preset-chip domain-filter-btn active" onclick="filterOpportunitiesByDomain('all', this)">All Domains</button>
+                    <button class="preset-chip domain-filter-btn" onclick="filterOpportunitiesByDomain('Web & Cloud Development', this)">Web & Cloud</button>
+                    <button class="preset-chip domain-filter-btn" onclick="filterOpportunitiesByDomain('Artificial Intelligence & Data', this)">AI & Data</button>
+                    <button class="preset-chip domain-filter-btn" onclick="filterOpportunitiesByDomain('Design & Frontend', this)">Design</button>
+                    <button class="preset-chip domain-filter-btn" onclick="filterOpportunitiesByDomain('Cloud & Infrastructure', this)">Cloud DevOps</button>
+                    <button class="preset-chip domain-filter-btn" onclick="filterOpportunitiesByDomain('Backend Systems', this)">Backend</button>
+                </div>
+            </div>
+
+            <!-- Opportunities Grid -->
+            <div class="opportunities-grid" id="opportunitiesContainer">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 2: Multidisciplinary Teams
+             ========================================== -->
+        <section id="teamsSection" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 24px; margin-bottom: 4px;">Multidisciplinary Hackathon & Project Teams</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px;">
+                        Synergy scores evaluate how effectively your verified skills complete the team's missing functional domains.
+                    </p>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="promptCreateTeam()">
+                    <i class="fa-solid fa-plus"></i> Register New Project Team
+                </button>
+            </div>
+
+            <div class="opportunities-grid" id="teamsContainer">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 3: Fairness & Verification Hub
+             ========================================== -->
+        <section id="fairnessSection" style="display: none;">
+            <!-- Fairness Guarantee Banner -->
+            <div class="fairness-guarantee-banner">
+                <div class="fairness-icon-large">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h3 style="font-size: 22px; color: #34d399; margin-bottom: 6px;">Algorithmic Fairness & Demographic Neutrality Guarantee</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px;">
+                        The SkillMatch matching engine complies with strict fair-hiring standards. Protected demographic attributes (gender, race, age, religion, socio-economic standing) and college prestige proxies (Tier-1 vs Tier-3) are stripped before match calculation. Match scores reflect 100% merit and verified competencies.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Audit Rules Grid -->
+            <h3 style="font-size: 20px; margin-bottom: 16px;"><i class="fa-solid fa-file-shield text-cyan"></i> Algorithmic Compliance Rules</h3>
+            <div id="fairnessAuditContainer">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+
+            <!-- Interactive Credential Ledger Verifier Simulator -->
+            <div class="verifier-box">
+                <h3 style="font-size: 20px; margin-bottom: 8px;"><i class="fa-solid fa-qrcode text-primary"></i> Public Ledger Credential Verifier</h3>
+                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                    Verify the authenticity of any university course transcript hash or micro-credential certificate ID in real-time.
+                </p>
+
+                <div style="display: flex; gap: 12px; max-width: 650px; margin-bottom: 18px; flex-wrap: wrap;">
+                    <input type="text" id="credentialIdInput" class="form-control" style="flex: 1; min-width: 260px;" placeholder="e.g. CERT-AWS-2024-8841 or CERT-META-2023-9932" value="CERT-AWS-2024-8841">
+                    <button class="btn btn-primary" onclick="verifyCredentialInput()">
+                        <i class="fa-solid fa-check-double"></i> Verify On Ledger
+                    </button>
+                </div>
+
+                <div id="verificationResultBox"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Evidence Citation / Skill Gap Modal -->
+    <div class="modal-overlay" id="evidenceModal">
+        <div class="modal-content-card">
+            <button type="button" class="modal-close-btn" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="evidenceModalBody">
+                <!-- Dynamic Content injected by script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="padding: 0;">
+            <p>SkillMatch Platform • Portable Verified Skill Passports & Fair Explainable Matchmaking Engine</p>
+            <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">
+                Explainable recommendations citing multi-source evidence with 100% bias-shielded merit evaluation
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core App Script -->
+    <script src="script.js"></script>
+    <script>
+        function switchMainTab(tabName) {
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById("internshipsSection").style.display = tabName === "internships" ? "block" : "none";
+            document.getElementById("teamsSection").style.display = tabName === "teams" ? "block" : "none";
+            document.getElementById("fairnessSection").style.display = tabName === "fairness" ? "block" : "none";
+
+            if (tabName === "internships") document.getElementById("tabInternshipsBtn").classList.add("active");
+            if (tabName === "teams") document.getElementById("tabTeamsBtn").classList.add("active");
+            if (tabName === "fairness") document.getElementById("tabFairnessBtn").classList.add("active");
+        }
+
+        function promptCreateTeam() {
+            const name = prompt("Team & Project Name (e.g. CleanEnergy AI):");
+            if (!name) return;
+            const hackathon = prompt("Hackathon / Competition (e.g. Smart India Hackathon 2026):") || "National Hackathon";
+            const roleName = prompt("Needed Complementary Role (e.g. UI/UX Designer or Cloud Architect):") || "Developer";
+            const skills = prompt("Required Skills for this role (comma separated):") || "React, UI/UX";
+
+            const newTeam = {
+                id: `TEAM-${Date.now().toString().slice(-4)}`,
+                name,
+                hackathon,
+                description: "Collaborative student project tackling real-world domain challenges.",
+                currentMembers: [
+                    { 
+                        name: (currentProfile && currentProfile.name) || "Student Founder", 
+                        role: "Team Lead & Project Founder", 
+                        skills: (currentProfile && currentProfile.skills ? currentProfile.skills.slice(0, 4) : ["Full Stack Dev"]) 
+                    }
+                ],
+                neededRoles: [
+                    {
+                        roleName,
+                        requiredSkills: skills.split(",").map(s => s.trim()).filter(Boolean),
+                        description: "Key complementary member needed to complete project milestones."
+                    }
+                ]
+            };
+
+            if (typeof defaultTeams !== "undefined") {
+                defaultTeams.unshift(newTeam);
+            }
+
+            fetch(`${API_BASE}/teams`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newTeam)
+            }).then(() => {
+                showToast("Project Team Registered!");
+                loadTeamMatches();
+            }).catch(() => {
+                showToast("Project Team Registered locally!");
+                loadTeamMatches();
+            });
+        }
+    </script>
+</body>
+</html>

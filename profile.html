@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Passport Studio - SkillMatch</title>
+    <meta name="description" content="Build, verify, and export your portable skill passport backed by coursework, projects, hackathon achievements, and micro-credentials.">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-brand">
+                <span class="logo-badge"><i class="fa-solid fa-passport"></i></span>
+                <span>SkillMatch</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li><a href="profile.html" class="nav-link active"><i class="fa-solid fa-id-card"></i> Skill Passport</a></li>
+                    <li><a href="opportunities.html" class="nav-link"><i class="fa-solid fa-briefcase"></i> Opportunities</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="toggleAnonymizedBtn">
+                    <i class="fa-solid fa-eye-slash"></i> Anonymized Mode
+                </button>
+                <a href="opportunities.html" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i> Find Matches
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Preset Switcher Bar -->
+        <div class="preset-switcher-box">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <i class="fa-solid fa-users" style="color:var(--accent-cyan);"></i>
+                <span style="font-size:14px; font-weight:600;">Load Verified Demo Personas:</span>
+            </div>
+            <div class="preset-pills" id="presetChipsContainer">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+        </div>
+
+        <div class="passport-studio-grid">
+            <!-- Left Column: Multi-Source Evidence Builder Form -->
+            <div class="form-panel">
+                <div class="form-panel-header">
+                    <h2 style="font-size: 24px; margin-bottom: 4px;">Student Skill Passport Studio</h2>
+                    <p style="color: var(--text-secondary); font-size: 14px;">
+                        Input your verified academic coursework, open source projects, hackathons, and accredited credentials to construct an immutable skill passport.
+                    </p>
+                </div>
+
+                <form id="skillForm">
+                    <!-- Basic Information -->
+                    <div class="form-group">
+                        <label for="name"><i class="fa-solid fa-user"></i> Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="e.g. Priya Sharma" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-group">
+                            <label for="college"><i class="fa-solid fa-building-columns"></i> College / University</label>
+                            <input type="text" id="college" class="form-control" placeholder="e.g. National Institute of Technology" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="branch"><i class="fa-solid fa-code-branch"></i> Branch / Specialization</label>
+                            <input type="text" id="branch" class="form-control" placeholder="e.g. Computer Science" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio"><i class="fa-solid fa-signature"></i> Professional Summary / Bio</label>
+                        <textarea id="bio" class="form-control" style="min-height:70px;" placeholder="Brief bio outlining your core strengths and areas of technical interest"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skills"><i class="fa-solid fa-bolt"></i> Primary Competencies (Comma Separated)</label>
+                        <input type="text" id="skills" class="form-control" placeholder="e.g. React, JavaScript, Node.js, Python, SQL, Docker" required>
+                        <small style="color: var(--text-muted); font-size: 11px;">These skills will be validated against the multi-source evidence entries below.</small>
+                    </div>
+
+                    <!-- 1. Verified Coursework Section -->
+                    <div class="evidence-section-box">
+                        <div class="evidence-section-box-header">
+                            <div>
+                                <h3 style="font-size: 15px; color: #38bdf8;"><i class="fa-solid fa-graduation-cap"></i> 1. Verified Coursework & Syllabi</h3>
+                                <p style="font-size: 12px; color: var(--text-secondary);">University accredited academic performance</p>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="addCourseworkPrompt()">
+                                <i class="fa-solid fa-plus"></i> Add Course
+                            </button>
+                        </div>
+                        <div class="evidence-items-list" id="courseworkItemsList">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- 2. Projects & Repositories Section -->
+                    <div class="evidence-section-box">
+                        <div class="evidence-section-box-header">
+                            <div>
+                                <h3 style="font-size: 15px; color: var(--accent-cyan);"><i class="fa-brands fa-github"></i> 2. Projects & Code Repositories</h3>
+                                <p style="font-size: 12px; color: var(--text-secondary);">Practical software applications & live commits</p>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="addProjectPrompt()">
+                                <i class="fa-solid fa-plus"></i> Add Project
+                            </button>
+                        </div>
+                        <div class="evidence-items-list" id="projectsItemsList">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- 3. Competitions & Hackathons Section -->
+                    <div class="evidence-section-box">
+                        <div class="evidence-section-box-header">
+                            <div>
+                                <h3 style="font-size: 15px; color: #fbbf24;"><i class="fa-solid fa-trophy"></i> 3. Competitions & Hackathons</h3>
+                                <p style="font-size: 12px; color: var(--text-secondary);">Objective peer rankings and hackathon wins</p>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="addCompetitionPrompt()">
+                                <i class="fa-solid fa-plus"></i> Add Competition
+                            </button>
+                        </div>
+                        <div class="evidence-items-list" id="competitionsItemsList">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- 4. Micro-Credentials Section -->
+                    <div class="evidence-section-box">
+                        <div class="evidence-section-box-header">
+                            <div>
+                                <h3 style="font-size: 15px; color: var(--accent-pink);"><i class="fa-solid fa-certificate"></i> 4. Micro-Credentials & Certifications</h3>
+                                <p style="font-size: 12px; color: var(--text-secondary);">Cryptographically verifiable industry certificates</p>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="addCredentialPrompt()">
+                                <i class="fa-solid fa-plus"></i> Add Credential
+                            </button>
+                        </div>
+                        <div class="evidence-items-list" id="credentialsItemsList">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">
+                            <i class="fa-solid fa-floppy-disk"></i> Save & Re-Index Skill Passport
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearToEmptyProfile()" style="flex: 1;">
+                            <i class="fa-solid fa-rotate-left"></i> Clear All
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: Live Verifiable Skill Passport Card -->
+            <div class="passport-card-container">
+                <div id="passportContainer">
+                    <!-- Rendered dynamically by script.js -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="padding: 0;">
+            <p>SkillMatch Platform • Portable Verified Skill Passports & Fair Explainable Matchmaking Engine</p>
+            <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">
+                Equitable and bias-free matching powered by multi-source evidence verification
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core App Script -->
+    <script src="script.js"></script>
+</body>
+</html>
